@@ -41,7 +41,7 @@ from app.model.video import VideoType, FromType, NationalityType
     </div>
     <div class="form-group">
         <div class="col-sm-10">
-            <label>国籍</label>
+            <label>出处</label>
             <select class="form-control video-select" name="nationality">
                 %for nationality in NationalityType:
                 <option value="${nationality.value}">${nationality.label}</option>
@@ -63,7 +63,7 @@ from app.model.video import VideoType, FromType, NationalityType
         <th>海报</th>
         <th>视频类型</th>
         <th>视频来源</th>
-        <th>国籍</th>
+        <th>出处</th>
         <th>简介</th>
         <th>状态</th>
         <th>创建时间</th>
