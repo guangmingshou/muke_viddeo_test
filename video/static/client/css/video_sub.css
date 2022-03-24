@@ -1,0 +1,87 @@
+.video-image{
+    width: 100%;
+}
+
+.info{
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.number-ul{
+    margin-bottom: 3rem;
+}
+
+.number-ul li{
+    display: inline-block;
+}
+
+.comment-area {
+    width: 100%;
+}
+
+.comment-area a{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+}
+
+.comment-area textarea{
+    width: 95%;
+    border: 1px solid #cccccc;
+    height: 4rem;
+    border-radius: 4px;
+    margin: 0 auto;
+    display: block;
+}
+
+.comment-area button{
+    border: 1px solid #cccccc;
+    padding: 0.2rem;
+    margin: 0 auto;
+    margin-left: 2.5%;
+}
+
+.m-img{
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem 0 0;
+}
+
+.m-box{
+    margin-left: .75rem;
+    margin-right: .75rem;
+    margin-bottom: 0;
+    height: 100%;
+    display: flex;
+    border-top-width: .5px;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.m-text-box{
+    flex-direction: column;
+    flex: 1rem;
+    width: 100%;
+    display: block;
+    min-width: 0;
+}
+
+.m-text{
+    font-size: .875rem;
+    color: #46b8da;
+    margin-bottom: 5px;
+}
+
+.m-text-2{
+    word-wrap: break-word;
+}
+
+.m-bian{
+    border-bottom: 2px solid #8c8c8c;
+    padding: 5px;
+    width: 250px;
+    height: 50px;
+    margin-bottom: 30px;
+}

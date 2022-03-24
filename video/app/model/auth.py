@@ -38,7 +38,7 @@ class ClientUser(models.Model):
         try:
             user = cls.objects.get(
                 username=username,
-                password=hash_password(password)
+                password=password
             )
             return user
         except:

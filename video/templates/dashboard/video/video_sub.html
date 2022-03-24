@@ -1,14 +1,22 @@
 <%inherit file="../base.html" />
 <%!
 from django.shortcuts import reverse
-from app.model.video import IdentityType
+from app.model.video import IdentityType, FromType
 %>
 <%def name="content()">
 <h1>${video.name}<span>  ${error}</span></h1>
 
+% if FromType(video.from_to) == FromType.custom:
+<form enctype="multipart/form-data" class="form-horizontal edit-area add-video-area add-url" method="POST">${csrf_token}
+% else:
 <form class="form-horizontal edit-area add-video-area add-url" method="POST">${csrf_token}
+% endif
     <p>地址与选集编辑区域</p>
+    % if FromType(video.from_to) != FromType.custom:
     <label>添加地址：</label><input id="url" type="text" name="url" class="form-control" /><br/>
+    % else:
+    <label>添加地址：</label><input id="url" type="file" name="url" class="form-control" /><br/>
+    % endif
     <label>添加集数：</label><input id="number" type="number" name="number" class="form-control" />
     <input type="hidden" value="" name="videosub_id" id="videosub-input-id" />
     <input type="submit" value="添加" class="btn btn-info" id="add-url-btn" />
@@ -41,7 +49,11 @@ from app.model.video import IdentityType
     %for video_sub in video.video_sub.all():
     <tr>
         <td>第${video_sub.number}集</td>
+        % if FromType(video.from_to) == FromType.custom:
+        <td><p class="info"><a href="${video_sub.url}">${video_sub.url or '视频上传中'}</a></p></td>
+        % else:
         <td><p class="info"><a href="${video_sub.url}">${video_sub.url}</a></p></td>
+        % endif
         <td>
             <button class="btn btn-default update-btn" data-id="${video_sub.id}" data-url="${video_sub.url}" data-number="${video_sub.number}">编辑</button>
             <a class="btn btn-default" href="${reverse('sub_delete', kwargs={'videosub_id': video_sub.id, 'video_id': video.id})}">删除</a>
@@ -58,6 +70,36 @@ from app.model.video import IdentityType
     %endfor
 </ul>
 
+% if FromType(video.from_to) == FromType.custom:
+<h2>评论管理</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>用户</th>
+        <th>内容</th>
+        <th>状态</th>
+        <th>控制</th>
+    </tr>
+    </thead>
+    <tbody>
+    %for comment in comments:
+    <tr>
+        <td>${comment.user.username}</td>
+        <td>${comment.content}</td>
+        <td>${comment.status}</td>
+        <td>
+            % if comment.status == True:
+            <a class="btn btn-default" href="${reverse('video_comment_status', kwargs={'comment_id': comment.id, 'video_id': video.id})}">隐藏</a>
+            % else:
+            <a class="btn btn-default" href="${reverse('video_comment_status', kwargs={'comment_id': comment.id, 'video_id': video.id})}">展示</a>
+            % endif
+            <a class="btn btn-default" href="${reverse('video_comment_delete', kwargs={'comment_id': comment.id, 'video_id': video.id})}">删除</a>
+        </td>
+    </tr>
+    %endfor
+    </tbody>
+</table>
+% endif
 </%def>
 <%def name="css()">
 <link href="/static/dashboard/css/video_sub.css" rel="stylesheet" />

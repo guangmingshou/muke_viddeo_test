@@ -1,0 +1,26 @@
+.video-show{
+    width: 50%;
+    height: 12rem;
+    float: left;
+    text-align: center;
+}
+
+.video-image{
+    width: 100%;
+    height: 10rem;
+}
+
+.video-name{
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.a_name{
+    color: #000000;
+    text-decoration: none !important;
+    bottom: 0;
+}

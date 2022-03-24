@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import djcelery
+
+djcelery.setup_loader()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,8 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'djcelery'
 ]
+
+BROKER_URL = 'redis://localhost:6379/2'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/3'
+CELERY_IMPORTS = ('app.tasks.task')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +131,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+
+# qiniu
+QINIU_AK = 'bIbVk_6xXZAJzhYss5-pG9cKMjnwGXYg5O-c5bZZ'
+QINIU_SK = 's1Cja8FOn6NDDEAJhumqcUs0YBPvnAT-H_1agMWl'
+QINIU_VIDEO = 'guangvideo'
+QINIU_VIDEO_URL = 'http://r93jpxzan.hb-bkt.clouddn.com'

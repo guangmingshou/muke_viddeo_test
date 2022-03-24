@@ -4,10 +4,10 @@
 <%
 from app.model.video import VideoType, FromType, NationalityType
 %>
-<h1>外链管理</h1>
+<h1>内链管理</h1>
 <button class="btn btn-info open-btn" id="open-add-video-btn">创建</button><span>${error}</span>
 
-<h3>外部视频</h3>
+<h3 id="custom-h3">自制视频</h3>
 <form id="video-edit-area" class="form-horizontal edit-area add-video-area" action="" method="POST">${csrf_token}
     <div class="form-group">
         <div class="col-sm-10">
@@ -56,6 +56,7 @@ from app.model.video import VideoType, FromType, NationalityType
     </div>
     <button type="submit" class="btn btn-info">添加</button>
 </form>
+
 <table class="table">
     <thead>
     <tr>
@@ -72,7 +73,7 @@ from app.model.video import VideoType, FromType, NationalityType
     </tr>
     </thead>
     <tbody>
-    % for video in ex_videos:
+    % for video in cus_videos:
     <tr>
         <td>${video.name}</td>
         <td><img class="video-images" src="${video.image}" /></td>
@@ -97,7 +98,6 @@ from app.model.video import VideoType, FromType, NationalityType
     % endfor
     </tbody>
 </table>
-
 </%def>
 <%def name="css()">
 <link href="/static/dashboard/css/externa_video.css" rel="stylesheet" />

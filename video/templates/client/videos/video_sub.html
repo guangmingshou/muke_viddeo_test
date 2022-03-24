@@ -1,0 +1,65 @@
+<%inherit file="../base.html" />
+<%def name="content()">
+<%
+from django.shortcuts import reverse
+from app.model.video import FromType
+from app.utils.permission import client_auth
+%>
+<img src="${video.image}" class="video-image" />
+<div class="data">
+    <p><span class="span">名称：</span> ${video.name}</p>
+    <p>
+        <span class="span">选集：</span>
+        % if FromType(video.from_to) == FromType.custom and not client_auth(request):
+        <a href="${reverse('client_auth')}">请登录</a>
+        % else:
+        <ul class="number-ul">
+        % for data in video.video_sub.all():
+            <li><a class="btn btn-default" href="${data.url}">第${data.number}集</a></li>
+        % endfor
+        </ul>
+        % endif
+    </p>
+    <p>
+        <ul>
+        % for man in video.video_star.all():
+            <li>${man.ident}：${man.name}</li>
+        % endfor
+        </ul>
+    </p>
+    <p>
+        <span class="span info">简介：${video.info}</span>
+    </p>
+
+    % if FromType(video.from_to) == FromType.custom:
+    <div class="comment-show-area">
+        <span class="span">评论列表</span><br />
+        % for comment in comments:
+        <div class="m-box">
+            <div class="m-img"><img style="width: 40px;" src="${comment.user.avatar}" /></div>
+            <div class="m-box">
+                <div class="m-bian">
+                    <div class="m-text">${comment.user.username}</div>
+                    <div class="m-text-2">${comment.content}</div>
+                </div>
+            </div>
+        </div>
+        % endfor
+        <div id="div" class="comment-area">
+        % if user:
+            <textarea id="comment-content"></textarea>${csrf_token}
+            <button id="comment-submit" data-url="${reverse('client_add_comment')}" data-user-id="${user.id}" data-video-id="${video.id}">发表评论</button>
+        % else:
+        <a href="${reverse('client_auth')}">登录后可以参与评论</a>
+        % endif
+        </div>
+    </div>
+    % endif
+</div>
+</%def>
+<%def name="css()">
+<link href="/static/client/css/video_sub.css" rel="stylesheet" />
+</%def>
+<%def name="js()">
+<script src="/static/client/js/video_sub.js"></script>
+</%def>
